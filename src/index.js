@@ -12,6 +12,10 @@ app.get("/test", (req, res) => {
   return res.json({ message: "Testing is ok" });
 });
 
+// Routes
+const problemRoutes = require("./Routes/index");
+app.use("/api", problemRoutes);
+
 // Server
 app.listen(PORT, () => {
   console.log(`Server Listening to PORT:${PORT}`);
