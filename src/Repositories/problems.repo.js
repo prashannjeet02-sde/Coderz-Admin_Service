@@ -25,6 +25,37 @@ class ProblemsRepo {
       throw error;
     }
   }
+
+  async getProblem(id) {
+    try {
+      const problem = await ProblemModel.findById(id);
+      return problem;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async updateProblem(id, data) {
+    try {
+      const modifyProblem = await ProblemModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      return modifyProblem;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async deleteProblem(id) {
+    try {
+      await ProblemModel.findByIdAndDelete(id);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 module.exports = ProblemsRepo;

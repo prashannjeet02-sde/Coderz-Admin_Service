@@ -39,11 +39,43 @@ async function getProblems(req, res) {
   }
 }
 
-async function getProblem(req, res) {}
+async function getProblem(req, res) {
+  try {
+    const id = req.params.id;
+    const problem = await problemServcie.getProblem(id);
+    return res
+      .status(201)
+      .json({ success: true, message: `Problem with id:${id}`, data: problem });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
-async function updateProblem(req, res) {}
+async function updateProblem(req, res) {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const modifyProblem = await problemServcie.updateProblem(id, data);
+    return res
+      .status(201)
+      .json({ success: true, message: "Updated", data: modifyProblem });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
-async function removeProblem(req, res) {}
+async function removeProblem(req, res) {
+  try {
+    const id = req.params.id;
+    await problemServcie.deleteProblem(id);
+    return res.status(204).json({ success: true, message: "Problem Deleted" });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 module.exports = {
   testController,
