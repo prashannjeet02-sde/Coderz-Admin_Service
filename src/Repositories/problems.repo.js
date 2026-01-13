@@ -6,6 +6,7 @@ class ProblemsRepo {
       const problem = await ProblemModel.create({
         title: problemData.title,
         description: problemData.description,
+        difficulty: problemData.difficulty,
         testCases: problemData.testCases ? problemData.testCases : [],
       });
       return problem;
