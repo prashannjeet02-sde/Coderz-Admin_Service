@@ -17,6 +17,9 @@ const problemRoutes = require("./Routes/index");
 app.use("/api", problemRoutes);
 
 // Server
-app.listen(PORT, () => {
+const DB = require("./Configs/db.config");
+app.listen(PORT, async () => {
   console.log(`Server Listening to PORT:${PORT}`);
+  await DB();
+  console.log("Connection to Database is Successfull");
 });
