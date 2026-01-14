@@ -1,3 +1,4 @@
+const { NotFound } = require("../errors");
 const { DataSanitizer } = require("../Utils/index");
 
 class ProblemService {
@@ -48,9 +49,12 @@ class ProblemService {
 
   async deleteProblem(id) {
     try {
-      await this.repository.deleteProblem(id);
+      const remove = await this.repository.deleteProblem(id);
+      if (!remove) {
+        throw new NotFound(`Problem with id:${id} not found`);
+      }
+      return remove;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

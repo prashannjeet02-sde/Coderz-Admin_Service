@@ -1,5 +1,6 @@
 const { ProblemService } = require("../Services/index");
 const { ProblemRepo } = require("../Repositories/index");
+const { NotFound } = require("../errors/index");
 
 const problemServcie = new ProblemService(new ProblemRepo());
 
@@ -66,14 +67,15 @@ async function updateProblem(req, res) {
   }
 }
 
-async function removeProblem(req, res) {
+async function removeProblem(req, res, next) {
   try {
     const id = req.params.id;
-    await problemServcie.deleteProblem(id);
-    return res.status(204).json({ success: true, message: "Problem Deleted" });
+    const deletedData = await problemServcie.deleteProblem(id);
+    return res
+      .status(200)
+      .json({ success: true, message: "Problem Deleted", data: deletedData });
   } catch (error) {
-    console.log(error);
-    throw error;
+    next(error);
   }
 }
 

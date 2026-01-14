@@ -50,9 +50,9 @@ class ProblemsRepo {
 
   async deleteProblem(id) {
     try {
-      await ProblemModel.findByIdAndDelete(id);
+      const removeProblem = await ProblemModel.findByIdAndDelete(id);
+      return removeProblem;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
